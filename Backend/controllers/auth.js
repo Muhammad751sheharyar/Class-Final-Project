@@ -5,9 +5,13 @@ const jwt = require("jsonwebtoken")
 const Signup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
+        if (!name, !email, !password) {
+            return res.send({
+                message: "pleace fill the input"
+            })
+        }
         const findUser = UserModel.findOne({ email })
-        // console.log(findUser);
-        // if (findUser) {
+        // if (!findUser) {
         //   return res.send({
         //         message: "user alreay exist",
         //         status: 202
@@ -51,9 +55,9 @@ const Login = async (req, res) => {
         process.env.JWT_SECRET, {
         expiresIn: '1h'
     }
-)
-console.log(token);
-    res.Cookie('acess tocken', token,
+    )
+    console.log(token);
+    res.cookie('acess tocken', token,
         {
             httpOnly: true,
             secure: false, // true sirf https me
@@ -62,4 +66,5 @@ console.log(token);
     );
 
 }
+
 module.exports = { Signup, Login }
