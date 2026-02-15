@@ -4,8 +4,10 @@ require("dotenv").config();
 const middleware = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    req.user = null
-    return next();
+    
+    res.status(404).json({
+      message:"token not avaliable"
+    })
   }
   console.log(token);
 
@@ -14,8 +16,9 @@ const middleware = async (req, res, next) => {
     req.user = decodedtoken
     console.log(req.user);
   } catch (err) {
-    console.log(err)
-    req.user=null
+    res.status(404).json({
+      message:"token not avaliable"
+    })
   }
   next();
 }
