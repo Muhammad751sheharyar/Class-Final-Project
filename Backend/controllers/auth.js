@@ -53,8 +53,8 @@ const Login = async (req, res) => {
     }
 )
 console.log(token);
-    res.Cookie('acess tocken', token
-        ,{
+    res.Cookie('acess tocken', token,
+        {
             httpOnly: true,
             secure: false, // true sirf https me
             maxAge: 24 * 60 * 60 * 1000
