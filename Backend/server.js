@@ -8,7 +8,7 @@ const database = require("./db/DBConnection")
 const PORT = 3000;
 app.use(express.json());
 app.use(cookieParser())
-app.use(middleware)
+// app.use(middleware)
 
 database()
 app.post("/home", (req, res) => {

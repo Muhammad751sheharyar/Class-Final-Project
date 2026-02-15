@@ -16,6 +16,4 @@ const findProduct=async(req,res)=>{
         message:"product get successfully"
     })
 }
-
-
 module.exports={Product,findProduct}

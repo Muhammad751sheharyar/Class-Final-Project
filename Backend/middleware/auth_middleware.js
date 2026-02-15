@@ -5,9 +5,9 @@ const middleware = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
     
-    res.status(404).json({
-      message:"token not avaliable"
-    })
+    // res.status(404).json({
+    //   message:"token not avaliable"
+    // })
   }
   console.log(token);
 
