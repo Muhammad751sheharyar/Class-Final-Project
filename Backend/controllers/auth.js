@@ -43,28 +43,27 @@ const Login = async (req, res) => {
             Message: "email and password incorrect"
         })
     }
-    res.send({
-        message: "user login successfully",
-        user
-    })
     console.log(user);
     const token = jwt.sign({
         id: user._id,
         email: user.email
     },
-        process.env.JWT_SECRET, {
+    process.env.JWT_SECRET, {
         expiresIn: '1h'
     }
-    )
-    console.log(token);
-    res.cookie('acess tocken', token,
-        {
-            httpOnly: true,
-            secure: false, // true sirf https me
-            maxAge: 24 * 60 * 60 * 1000
-        }
-    );
+)
+console.log(token);
+res.cookie( "token",token,{       
+    httpOnly: true,
+    secure: false, // true sirf https me
+    maxAge: 24 * 60 * 60 * 1000
+    
+});
 
+res.send({
+    message: "user login successfully",
+    user
+})
 }
 
 module.exports = { Signup, Login }
