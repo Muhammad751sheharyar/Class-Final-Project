@@ -7,7 +7,14 @@ const produts=new mongoose.Schema ({
         type:String,
         required:true
     },
-
+    Categry:{
+        type:String,
+        required:true
+    },
+    Price:{
+        type:String,
+        required:true
+    },
 })
 
 

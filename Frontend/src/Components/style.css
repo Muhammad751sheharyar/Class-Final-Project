@@ -1,0 +1,19 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.Main{
+    margin: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 400px;
+    /* background-color: black; */
+}
+input{
+    border-radius: 20px;
+    height: 30px;
+    width: 200px;
+
+}
