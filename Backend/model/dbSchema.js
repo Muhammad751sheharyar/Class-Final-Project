@@ -14,5 +14,6 @@ const Signup = new mongoose.Schema({
         required: true
     }
 })
+
 const UserModel = mongoose.model("project",Signup);
 module.exports=UserModel
