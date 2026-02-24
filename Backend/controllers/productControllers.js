@@ -1,6 +1,6 @@
 const ProductData = require("../model/produtModel");
 
-const Product = async (req, res) => {
+const CreateProduct = async (req, res) => {
     const { productName,Categry,Price } = req.body
     const newproduct = new ProductData({ productName,Categry,Price });
     newproduct.save();
@@ -22,12 +22,12 @@ const findProduct = async (req, res) => {
 const Update = async (req, res) => {
     try {
         const productUpdate = req.params.id;
-        console.log(productUpdate);
+        console.log(productUpdate+"25");
         const updatePorduct = await Product.finByIdAndUpdate({ _id: productUpdate }, req.body, {
             new: save
 
         })
-        console.log(updatePorduct)
+        console.log(updatePorduct+"30")
         if (!productUpdate) {
             return res.send({
                 message: "prduct is not exist"
@@ -56,4 +56,4 @@ const deleteProduct = async (req, res) => {
         err
     }
 }
-module.exports = { Product, findProduct, Update, deleteProduct }
+module.exports = { CreateProduct, findProduct, Update, deleteProduct }

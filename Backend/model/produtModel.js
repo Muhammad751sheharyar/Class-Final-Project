@@ -1,6 +1,4 @@
 const mongoose=require("mongoose");
-
-
 const produts=new mongoose.Schema ({
   
     productName:{

@@ -1,13 +1,13 @@
 const express=require("express");
 const {Signup,Login} = require("../controllers/auth");
-const {Product, findProduct ,Update,deleteProduct}=require("../controllers/productControllers")
+const {CreateProduct, findProduct ,Update,deleteProduct}=require("../controllers/productControllers")
 const router=express.Router();
 const middleware=require("../middleware/auth_middleware")
 router.post("/Signup",Signup)
 router.post("/Login",Login)
-router.post("/Product",Product)
+router.post("/CreateProduct",CreateProduct)
 router.get("/get",findProduct)
-router.put("/Update/id",Update);
+router.put("/Update",Update);
 router.delete("/delete",deleteProduct)
 const cloudinary = require("../config/cloudnary");
 const upload = require("../middleware/upload");
