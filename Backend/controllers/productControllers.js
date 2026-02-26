@@ -20,15 +20,16 @@ const findProduct = async (req, res) => {
 
 
 const Update = async (req, res) => {
+    // res.send("update")
     try {
         const productUpdate = req.params.id;
         console.log(productUpdate+"25");
-        const updatePorduct = await Product.finByIdAndUpdate({ _id: productUpdate }, req.body, {
+        const updatePorduct = await Product.findByIdAndUpdate({productUpdate }, req.body, {
             new: save
 
         })
         console.log(updatePorduct+"30")
-        if (!productUpdate) {
+        if (!id) {
             return res.send({
                 message: "prduct is not exist"
             })

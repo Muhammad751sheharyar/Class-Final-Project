@@ -7,7 +7,7 @@ router.post("/Signup",Signup)
 router.post("/Login",Login)
 router.post("/CreateProduct",CreateProduct)
 router.get("/get",findProduct)
-router.put("/Update",Update);
+router.put("/update/:id", Update);
 router.delete("/delete",deleteProduct)
 const cloudinary = require("../config/cloudnary");
 const upload = require("../middleware/upload");
