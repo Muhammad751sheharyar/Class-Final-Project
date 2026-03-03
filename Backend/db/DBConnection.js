@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 function database() {
-    mongoose.connect(process.env.DB_Connect)
+    mongoose.connect(process.env.DB_PASS)
         .then(() => {
             console.log("Data BAse is conneted")
         }).catch((err) => {
