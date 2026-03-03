@@ -1,12 +1,14 @@
 import React from 'react'
-import Signup from './Components/Signup'
-import Login from './Components/Login'
-
+import { ShowData } from './Components/ShowData'
+// import Signup from './Components/Signup'
+// import Login from './Components/Login'
 function App() {
   return (
     <div>
-      <Signup/>
-      <Login/>
+      <ShowData/>
+       
+      {/* <Signup /> */}
+      {/* <Login /> */}
     </div>
   )
 }
