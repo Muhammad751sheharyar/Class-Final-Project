@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import  { useState } from 'react'
 
 function AddUser() {
 
@@ -14,16 +14,16 @@ function AddUser() {
         setUser({ ...user, [name]: value });
         console.log(name, value)
     }
-    const submitForm = async () => {
+    const submitForm = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:3000/api/CreateProduct", user)
+        const newData = await axios.post("http://localhost:3000/api/CreateProduct", user)
             .then(() => {
                 console.log("product add successfully")
             }).catch((err) => {
                 console.log("product not created")
                 err
             })
-        console.log(add)
+        console.log(user)
     }
 
     return (
@@ -32,11 +32,12 @@ function AddUser() {
                 productName
                 <input type="text"
                     id="productName"
-                    name="name"
+                    name=" productName"
                     onChange={inputHandler}
                 /><br /><br />
                 productCategry
                 <input type="text"
+                name='Categry'
                     id="Categry"
                     onChange={inputHandler}
 
@@ -45,6 +46,7 @@ function AddUser() {
                 price
                 <input type="text"
                     id="Price"
+                    name=' Price'
                     onChange={inputHandler}
 
                 /><br /><br />
