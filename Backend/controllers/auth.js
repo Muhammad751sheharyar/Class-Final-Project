@@ -65,5 +65,4 @@ res.send({
     user
 })
 }
-
 module.exports = { Signup, Login }
