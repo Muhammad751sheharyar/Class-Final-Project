@@ -1,9 +1,12 @@
 import React from 'react'
-import { ShowData } from './Components/ShowData'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AddUser from './Components/AddUser'
-// import Signup from './Components/Signup'
-// import Login from './Components/Login'
+// import { Login } from '../../Backend/controllers/auth'
+import Navbar from './Components/Navbar/Navbar'
+import Signup from './Components/Signup'
+import Login from './Components/Login'
+import { ShowData } from './Components/ShowData'
+import UpdateProduct from './UpdateProducts/UpdateProducts'
 function App() {
   const route = createBrowserRouter([
     {
@@ -13,17 +16,18 @@ function App() {
     },
     {
       path: "/adduser",
-      element:<AddUser/>
+      element: <AddUser />
+    },
+    {
+      path: "/UpdateProduct",
+      element: <UpdateProduct />
     }
 
   ])
   return (
     <div>
+      <Navbar/>
       <RouterProvider router={route}></RouterProvider>
-      {/* <ShowData /> */}
-
-      {/* <Signup /> */}
-      {/* <Login /> */}
     </div>
   )
 }

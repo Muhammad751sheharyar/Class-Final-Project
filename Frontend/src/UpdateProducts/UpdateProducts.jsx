@@ -1,10 +1,9 @@
-
 import axios from 'axios';
-import { useState } from 'react';
-import "./AddUser.css";
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import "./UpdateProduct.css";
+import { Link,useParams } from 'react-router-dom';
 
-function AddUser() {
+function UpdateProduct() {
 
     const users = {
         productName: "",
@@ -13,6 +12,17 @@ function AddUser() {
     }
 
     const [user, setUser] = useState(users);
+    const {id}=useParams();
+    useEffect(()=>{
+        axios.get(`http://localhost:3000/api/get${id}`)
+        .then((responce)=>{
+            setUser(responce.data)
+
+        }).catch((err)=>{
+
+            console.log(err)
+        })
+    },[id])
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -43,6 +53,7 @@ function AddUser() {
                     <input
                         type="text"
                         id="productName"
+                        value={user.productName}
                         name="productName"
                         onChange={inputHandler}
                         placeholder="Enter product name"
@@ -54,6 +65,7 @@ function AddUser() {
                     <input
                         type="text"
                         name="Categry"
+                        value={user.name}
                         id="Categry"
                         onChange={inputHandler}
                         placeholder="Enter category"
@@ -65,6 +77,7 @@ function AddUser() {
                     <input
                         type="text"
                         id="Price"
+                        value={user.Price}
                         name="Price"
                         onChange={inputHandler}
                         placeholder="Enter price"
@@ -79,4 +92,4 @@ function AddUser() {
     )
 }
 
-export default AddUser;
+export default UpdateProduct;
