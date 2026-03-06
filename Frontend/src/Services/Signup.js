@@ -10,16 +10,15 @@ import { apiRequest } from "./APIService";
  * @param {string} lastName The user's password.
  * @returns {Promise<object|null>} User data and token on success, null on failure.
  */
-export async function login({ email, password}) {
+export async function signup({name, email, password, role}) {
   try {
-    const data = await apiRequest(`/api/auth/login`, {
+    const data = await apiRequest(`/api/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         // Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ email, password }),
-      
+      body: JSON.stringify({ name, email, password, role }),
     });
     console.log(data, "line 21");
     // Handle successful login (e.g., store token in localStorage/sessionStorage)
@@ -28,7 +27,7 @@ export async function login({ email, password}) {
     }
     return data;
   } catch (error) {
-    console.error("Login failed:", error.message);
+    console.error("Sign Up failed:", error.message);
     // Specific error handling for login can go here
     throw error;
   }
