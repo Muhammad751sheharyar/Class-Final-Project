@@ -1,19 +1,209 @@
-import React from 'react'
-import './style.css'
-import { useState } from 'react'
-function Login() {
-// const[emai,setEmail]=useState()
-// const[password,setPassword]=useState()
+// import React from 'react'
+// import './style.css'
+// import { useState } from 'react'
+// function Login() {
+// // const[emai,setEmail]=useState()
+// // const[password,setPassword]=useState()
+
+//     return (
+//         <div className='Main'>
+//             <h1>Login</h1>
+//             <input type="email" placeholder='Email' /><br />
+//             <input type="password" placeholder='Password' /><br />  
+//             <button>Login</button>
+            
+//               </div>
+//     )
+// }
+
+// export default Login
+import { useState } from "react";
+import { TextField, Button, Box, Typography, Container, Alert, Paper, IconButton, InputAdornment, CircularProgress } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { styled } from "@mui/system";
+import { login } from "../Services/login";
+
+/* ---------- Animated Background ---------- */
+
+const Background = styled(Box)({
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "linear-gradient(135deg, #0f172a, #1e293b, #0f172a)",
+    backgroundSize: "400% 400%",
+    animation: "gradientMove 10s ease infinite",
+    "@keyframes gradientMove": {
+        "0%": { backgroundPosition: "0% 50%" },
+        "50%": { backgroundPosition: "100% 50%" },
+        "100%": { backgroundPosition: "0% 50%" }
+    }
+});
+
+/* ---------- Glass Card ---------- */
+
+const AnimatedCard = styled(Paper)({
+    padding: "40px",
+    width: "100%",
+    maxWidth: "420px",
+    borderRadius: "20px",
+    backdropFilter: "blur(15px)",
+    background: "rgba(255,255,255,0.05)",
+    boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+    animation: "fadeIn 0.8s ease",
+    "@keyframes fadeIn": {
+        from: { opacity: 0, transform: "translateY(30px)" },
+        to: { opacity: 1, transform: "translateY(0)" }
+    }
+});
+
+export default function LoginForm() {
+
+    const [errors, setErrors] = useState({});
+    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [showPass, setShowPass] = useState(false);
+
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const validate = () => {
+        let tempErrors = {};
+        if (!formData.email) tempErrors.email = "Email is required";
+        if (!formData.password) tempErrors.password = "Password is required";
+        setErrors(tempErrors);
+        return Object.keys(tempErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSuccess(false);
+
+        if (validate()) {
+            setLoading(true);
+            await login(formData);
+            setLoading(false);
+            setSuccess(true);
+        }
+    };
 
     return (
-        <div className='Main'>
-            <h1>Login</h1>
-            <input type="email" placeholder='Email' /><br />
-            <input type="password" placeholder='Password' /><br />  
-            <button>Login</button>
-            
-              </div>
-    )
-}
+        <Background>
+            <Container sx={{
+                minHeight: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+                <AnimatedCard elevation={10}>
+                    <Box
+                        component="form"
+                        onSubmit={handleSubmit}
+                        sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+                    >
 
-export default Login
+                        <Typography
+                            variant="h4"
+                            textAlign="center"
+                            sx={{
+                                fontWeight: "bold",
+                                color: "#38bdf8",
+                                letterSpacing: 1
+                            }}
+                        >
+                            Welcome Back
+                        </Typography>
+
+                        {success && (
+                            <Alert severity="success">
+                                Login Successful!
+                            </Alert>
+                        )}
+
+                        {/* Email */}
+                        <TextField
+                            label="Email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            error={!!errors.email}
+                            helperText={errors.email}
+                            fullWidth
+                            sx={{
+                                input: { color: "white" },
+                                label: { color: "#94a3b8" },
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": { borderColor: "#334155" },
+                                    "&:hover fieldset": { borderColor: "#38bdf8" },
+                                    "&.Mui-focused fieldset": { borderColor: "#38bdf8" }
+                                }
+                            }}
+                        />
+
+                        {/* Password with Toggle */}
+                        <TextField
+                            label="Password"
+                            name="password"
+                            type={showPass ? "text" : "password"}
+                            value={formData.password}
+                            onChange={handleChange}
+                            error={!!errors.password}
+                            helperText={errors.password}
+                            fullWidth
+                            sx={{
+                                input: { color: "white" },
+                                label: { color: "#94a3b8" },
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": { borderColor: "#334155" },
+                                    "&:hover fieldset": { borderColor: "#38bdf8" },
+                                    "&.Mui-focused fieldset": { borderColor: "#38bdf8" }
+                                }
+                            }}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={() => setShowPass(!showPass)}
+                                            sx={{ color: "#94a3b8" }}
+                                        >
+                                            {showPass ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
+
+                        {/* Button */}
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            size="large"
+                            disabled={loading}
+                            sx={{
+                                mt: 2,
+                                background: "linear-gradient(90deg, #38bdf8, #6366f1)",
+                                fontWeight: "bold",
+                                letterSpacing: 1,
+                                transition: "0.3s",
+                                "&:hover": {
+                                    transform: "scale(1.05)",
+                                    boxShadow: "0 10px 30px rgba(56,189,248,0.5)"
+                                }
+                            }}
+                        >
+                            {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "Login"}
+                        </Button>
+
+                    </Box>
+                </AnimatedCard>
+            </Container>
+        </Background>
+    );
+}
